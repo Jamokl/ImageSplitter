@@ -15,45 +15,33 @@ public class imageSplit {
 
 	public static void main(String[] args) throws IOException {
 		System.setProperty("http.agent", "Chrome");
-
-        // reading the original image file
-        // File file = new File("https://www.educative.io/api/edpresso/shot/5120209133764608/image/5075298506244096/test.jpg");
-        // FileInputStream sourceFile = new FileInputStream(file);
-        
-        // reading the file from a URL
+		
         URL url;
 		try {
 			url = new URL("https://www.italien.de/images/Canale-Grande-Venedig-Italien-1200x700.jpg");
 			InputStream is = url.openStream();
 	        BufferedImage image = ImageIO.read(is);
 
-	        // initalizing rows and columns
 	        int rows = 3;
 	        int columns = 3;
 
-	        // initializing array to hold subimages
 	        BufferedImage imgs[] = new BufferedImage[9];
 
-	        // Equally dividing original image into subimages
 	        int subimage_Width = image.getWidth() / columns;
 	        int subimage_Height = image.getHeight() / rows;
 	        
 	        int current_img = 0;
 	        
-	        // iterating over rows and columns for each sub-image
 	        for (int i = 0; i < rows; i++)
 	        {
 	            for (int j = 0; j < columns; j++)
 	            {
-	                // Creating sub image
 	                imgs[current_img] = new BufferedImage(subimage_Width, subimage_Height, image.getType());
 	                Graphics2D img_creator = imgs[current_img].createGraphics();
 
-	                // coordinates of source image
 	                int src_first_x = subimage_Width * j;
 	                int src_first_y = subimage_Height * i;
-
-	                // coordinates of sub-image
+			    
 	                int dst_corner_x = subimage_Width * j + subimage_Width;
 	                int dst_corner_y = subimage_Height * i + subimage_Height;
 	                
@@ -62,7 +50,6 @@ public class imageSplit {
 	            }
 	        }
 
-	        //writing sub-images into image files
 	        for (int i = 0; i < 9; i++)
 	        {
 	            File outputFile = new File("img" + i + ".jpg");
